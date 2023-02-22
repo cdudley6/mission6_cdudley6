@@ -11,14 +11,13 @@ namespace mission6_cdudley6.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+
         private DateApplicationContext blahContext { get; set; }
-        
+
         //constructor
 
-        public HomeController(ILogger<HomeController> logger, DateApplicationContext someName)
+        public HomeController(DateApplicationContext someName)
         {
-            _logger = logger;
             blahContext = someName;
         }
 
@@ -26,17 +25,17 @@ namespace mission6_cdudley6.Controllers
         {
             return View();
         }
-        
+
         [HttpGet]
-        public IActionResult DatingApplication ()
+        public IActionResult DatingApplication()
         {
             return View();
         }
         [HttpPost]
         public IActionResult DatingApplication(ApplicationResponse ar)
         {
-           blahContext.Add(ar);
-           blahContext.SaveChanges();
+            blahContext.Add(ar);
+            blahContext.SaveChanges();
 
             return View("Confrimation", ar);
         }
@@ -45,10 +44,14 @@ namespace mission6_cdudley6.Controllers
             return View();
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+        public IActionResult WaitList ()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var applications = blahContext.responses.ToList();
+
+            return View(applications);
         }
+
     }
 }
+
+      
