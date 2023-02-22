@@ -1,9 +1,12 @@
 ﻿
 @{
-    ViewData["Title"] = "Wait List";
+    ViewData["Title"] = "Movie List";
 }
-<table class="table table-bordered">
-    <thead>
+
+@model  List<ApplicationResponse>
+
+<table class="table table-bordered table-striped">
+    <thead class="font-weight-bold">
         <tr>
             <td>Category</td>
             <td>Title</td>
@@ -15,4 +18,23 @@
             <td>Notes</td>
         </tr>
     </thead>
+
+    <tbody>
+        @foreach (var x in Model)
+            {
+        <tr>
+            <td>@x.Category.CategoryName</td>
+            <td>@x.Title</td>
+            <td>@x.Year</td>
+            <td>@x.Director</td>
+            <td>@x.Rating</td>
+            <td>@x.Edited</td>
+            <td>@x.Lent</td>
+            <td>@x.Notes</td>
+
+            <td><a asp-controller="Home" asp-action="Edit" asp-route-applicationid="@x.CategoryId">Edit</a></td>
+            <td><a asp-controller="Home" asp-action="Delete" asp-route-applicationid="@x.CategoryId">Delete</a></td>
+        </tr>
+            }
+    </tbody>
 </table>

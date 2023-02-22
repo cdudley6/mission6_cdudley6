@@ -21,10 +21,11 @@ namespace mission6_cdudley6.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<string>("Category")
-                        .HasColumnType("TEXT");
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("INTEGER");
 
                     b.Property<string>("Director")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<bool>("Edited")
@@ -37,9 +38,11 @@ namespace mission6_cdudley6.Migrations
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Rating")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Title")
+                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<int>("Year")
@@ -47,13 +50,15 @@ namespace mission6_cdudley6.Migrations
 
                     b.HasKey("ApplicationId");
 
+                    b.HasIndex("CategoryId");
+
                     b.ToTable("responses");
 
                     b.HasData(
                         new
                         {
                             ApplicationId = 1,
-                            Category = "Thriller",
+                            CategoryId = 1,
                             Director = "Keenan Peele",
                             Edited = false,
                             Rating = "R",
@@ -63,7 +68,7 @@ namespace mission6_cdudley6.Migrations
                         new
                         {
                             ApplicationId = 2,
-                            Category = "Thriller",
+                            CategoryId = 2,
                             Director = "David Fincher",
                             Edited = false,
                             Rating = "R",
@@ -73,13 +78,53 @@ namespace mission6_cdudley6.Migrations
                         new
                         {
                             ApplicationId = 3,
-                            Category = "Action",
+                            CategoryId = 2,
                             Director = "Christopher Nolan",
                             Edited = false,
                             Rating = "PG-13",
                             Title = "Dark Knight",
                             Year = 2011
                         });
+                });
+
+            modelBuilder.Entity("mission6_cdudley6.Models.Category", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("CategoryName")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("CategoryId");
+
+                    b.ToTable("Categorys");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Thriller"
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Action"
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Comedy"
+                        });
+                });
+
+            modelBuilder.Entity("mission6_cdudley6.Models.ApplicationResponse", b =>
+                {
+                    b.HasOne("mission6_cdudley6.Models.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

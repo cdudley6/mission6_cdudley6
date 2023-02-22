@@ -11,8 +11,7 @@ namespace mission6_cdudley6.Models
         [Key]
         [Required]
         public int ApplicationId { get; set; }
-        [Required]
-        public string Category { get; set; }
+
         [Required]
         public string Title { get; set; }
         [Required]
@@ -24,6 +23,11 @@ namespace mission6_cdudley6.Models
         public bool Edited { get; set; }
         public string Lent { get; set; }
         public string Notes { get; set; }
+
+        // build foreign key relationship
+        [Required]
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
     }
 }
