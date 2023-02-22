@@ -1,0 +1,15 @@
+﻿
+@{
+    ViewData["Title"] = "Application Submitted";
+}
+@model mission6_cdudley6.Models.ApplicationResponse
+
+@if (Model.Edited == true)
+{
+    <h2>My bad. I forgot that I'm already in a relationship. But I have a friend who I think would be perfect for you.</h2>
+}
+else
+{
+    <h2>Application Received. Thank you, @Model.Director.  </h2>
+    <h3>(Although, you really ought to be thanking me for even considering going out with you.</h3>
+}

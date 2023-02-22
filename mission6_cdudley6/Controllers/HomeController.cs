@@ -12,17 +12,34 @@ namespace mission6_cdudley6.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private DateApplicationContext blahContext { get; set; }
+        
+        //constructor
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, DateApplicationContext someName)
         {
             _logger = logger;
+            blahContext = someName;
         }
 
         public IActionResult Index()
         {
             return View();
         }
+        
+        [HttpGet]
+        public IActionResult DatingApplication ()
+        {
+            return View();
+        }
+        [HttpPost]
+        public IActionResult DatingApplication(ApplicationResponse ar)
+        {
+           blahContext.Add(ar);
+           blahContext.SaveChanges();
 
+            return View("Confrimation", ar);
+        }
         public IActionResult Privacy()
         {
             return View();
